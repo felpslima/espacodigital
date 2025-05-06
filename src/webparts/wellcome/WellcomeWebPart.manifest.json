@@ -16,13 +16,13 @@
   "supportsThemeVariants": true,
 
   "preconfiguredEntries": [{
-    "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Advanced
+    "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
     "group": { "default": "Advanced" },
-    "title": { "default": "Wellcome" },
-    "description": { "default": "Wellcome description" },
+    "title": { "default": "Boas-vindas" },
+    "description": { "default": "Boas-vindas" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "Wellcome"
+      "description": "Boas-vindas"
     }
   }]
 }

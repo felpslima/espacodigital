@@ -14,6 +14,7 @@ import { IWellcomeProps } from './components/IWellcomeProps';
 
 export interface IWellcomeWebPartProps {
   description: string;
+  backgroundImageUrl: string;
 }
 
 export default class WellcomeWebPart extends BaseClientSideWebPart<IWellcomeWebPartProps> {
@@ -25,11 +26,13 @@ export default class WellcomeWebPart extends BaseClientSideWebPart<IWellcomeWebP
     const element: React.ReactElement<IWellcomeProps> = React.createElement(
       Wellcome,
       {
+        context: this.context,
         description: this.properties.description,
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        userDisplayName: this.context.pageContext.user.displayName,
+        backgroundImageUrl: this.properties.backgroundImageUrl
       }
     );
 
@@ -110,6 +113,10 @@ export default class WellcomeWebPart extends BaseClientSideWebPart<IWellcomeWebP
               groupFields: [
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel
+                }),
+                PropertyPaneTextField('backgroundImageUrl', {
+                  label: 'URL da Imagem de Fundo',
+                  description: 'URL da imagem que será exibida como fundo do web part'
                 })
               ]
             }

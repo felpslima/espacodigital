@@ -1,11 +1,10 @@
 import { WebPartContext } from '@microsoft/sp-webpart-base';
 
-export interface IWellcomeProps {
-  context: WebPartContext;
+export interface IAnnouncementsProps {
   description: string;
   isDarkTheme: boolean;
   environmentMessage: string;
   hasTeamsContext: boolean;
   userDisplayName: string;
-  backgroundImageUrl: string;
-}
+  context: WebPartContext;
+} 

@@ -1,10 +1,9 @@
-# espaco-digital
+# Espaco Digital do Estudante
 
 ## Summary
 
 Short summary on functionality and used technologies.
 
-[picture of the solution in action, if possible]
 
 ## Used SharePoint Framework Version
 
@@ -15,24 +14,22 @@ Short summary on functionality and used technologies.
 - [SharePoint Framework](https://aka.ms/spfx)
 - [Microsoft 365 tenant](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
 
-> Get your own free development tenant by subscribing to [Microsoft 365 developer program](http://aka.ms/o365devprogram)
-
 ## Prerequisites
 
 > Any special pre-requisites?
 
 ## Solution
 
-| Solution    | Author(s)                                               |
-| ----------- | ------------------------------------------------------- |
-| folder name | Author details (name, company, twitter alias with link) |
+| Solution      | Author(s)                                               |
+| ------------- | ------------------------------------------------------- |
+| EspacoDigital | Felipe Borde | Trabalho realizado para meu TCC          |
 
 ## Version history
 
 | Version | Date             | Comments        |
 | ------- | ---------------- | --------------- |
-| 1.1     | March 10, 2021   | Update comment  |
-| 1.0     | January 29, 2021 | Initial release |
+| 1.1     | May 6, 2025   | Update solution |
+| 1.0     | May 6, 2025   | Initial release |
 
 ## Disclaimer
 
@@ -44,11 +41,11 @@ Short summary on functionality and used technologies.
 
 - Clone this repository
 - Ensure that you are at the solution folder
+- Install all dependencies
 - in the command-line run:
   - **npm install**
   - **gulp serve**
 
-> Include any additional steps as needed.
 
 ## Features
 

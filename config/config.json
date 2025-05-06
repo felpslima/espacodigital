@@ -2,17 +2,17 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
   "version": "2.0",
   "bundles": {
-    "wellcome-web-part": {
+    "announcements-web-part": {
       "components": [
         {
-          "entrypoint": "./lib/webparts/wellcome/WellcomeWebPart.js",
-          "manifest": "./src/webparts/wellcome/WellcomeWebPart.manifest.json"
+          "entrypoint": "./lib/webparts/announcements/AnnouncementsWebPart.js",
+          "manifest": "./src/webparts/announcements/AnnouncementsWebPart.manifest.json"
         }
       ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "WellcomeWebPartStrings": "lib/webparts/wellcome/loc/{locale}.js"
+    "AnnouncementsWebPartStrings": "lib/webparts/announcements/loc/{locale}.js"
   }
 }
