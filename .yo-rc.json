@@ -1,0 +1,18 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "18.0.0",
+    "sdksVersions": {},
+    "version": "1.21.1",
+    "libraryName": "espaco-digital",
+    "libraryId": "4ebb3311-1c2f-40c3-a79d-2c9bbfeb8cff",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "EspacoDigital",
+    "solutionShortDescription": "EspacoDigital description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

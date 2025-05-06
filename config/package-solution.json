@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "espaco-digital-client-side-solution",
+    "id": "4ebb3311-1c2f-40c3-a79d-2c9bbfeb8cff",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.21.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "EspacoDigital description"
+      },
+      "longDescription": {
+        "default": "EspacoDigital description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "espaco-digital Feature",
+        "description": "The feature that activates elements of the espaco-digital solution.",
+        "id": "2b405e0c-ba0f-4189-938c-4d1afb150a0c",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/espaco-digital.sppkg"
+  }
+}
