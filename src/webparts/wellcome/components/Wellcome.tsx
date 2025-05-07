@@ -57,7 +57,7 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
     try {
       console.log('Iniciando carregamento dos favoritos...');
       const response = await this.props.context.spHttpClient.get(
-        `${this.props.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('Favoritos')/items`,
+        `${this.props.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('Favoritos')/items?$select=ID,Title,Link,Icone`,
         SPHttpClient.configurations.v1,
         {
           headers: {
@@ -72,11 +72,23 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
         console.log('Resposta da API:', data);
         console.log('Número de favoritos carregados:', data.value ? data.value.length : 0);
         
-        const formattedFavorites = data.value.map((item: any) => ({
-          Title: item.Title || '',
-          Link: item.Link || '',
-          Icon: item.Icon || 'Link'
-        }));
+        const formattedFavorites = data.value.map((item: any) => {
+          let iconUrl = '';
+          try {
+            if (item.Icone) {
+              const iconData = JSON.parse(item.Icone);
+              iconUrl = `${this.props.context.pageContext.web.absoluteUrl}/Lists/Favoritos/Attachments/${item.ID}/${iconData.fileName}`;
+            }
+          } catch (error) {
+            console.error('Erro ao processar ícone:', error);
+          }
+
+          return {
+            Title: item.Title || '',
+            Link: item.Link || '',
+            Icone: iconUrl || 'Link'
+          };
+        });
 
         this.setState({
           favorites: formattedFavorites,
@@ -96,11 +108,26 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
     return (
       <div className={styles.carouselItem}>
         <a href={item.Link} className={styles.quickLinkButton} target="_blank" rel="noopener noreferrer">
-          <Icon iconName={item.Icon || 'Link'} className={styles.quickLinkIcon} />
+          {item.Icone && item.Icone !== 'Link' ? (
+            <img src={item.Icone} alt={item.Title} className={styles.quickLinkIcon} />
+          ) : (
+            <Icon iconName="Link" className={styles.quickLinkIcon} />
+          )}
           <span>{item.Title}</span>
         </a>
       </div>
     );
+  }
+
+  private groupFavoritesIntoSlides(favorites: IFavoriteItem[]): IFavoriteItem[][] {
+    const itemsPerSlide = 4; // Número de itens por slide
+    const slides: IFavoriteItem[][] = [];
+    
+    for (let i = 0; i < favorites.length; i += itemsPerSlide) {
+      slides.push(favorites.slice(i, i + itemsPerSlide));
+    }
+    
+    return slides;
   }
 
   private renderShimmer(): JSX.Element {
@@ -142,6 +169,7 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
   public render(): React.ReactElement<IWellcomeProps> {
     const { userName, userPhoto, favorites, isLoading } = this.state;
     const backgroundImage = this.props.backgroundImageUrl || this.defaultBackgroundImage;
+    const slides = this.groupFavoritesIntoSlides(favorites);
 
     return (
       <div 
@@ -173,19 +201,20 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
             <div className={styles.rightSection}>
               {favorites && favorites.length > 0 ? (
                 <Carousel
-                  element={favorites.map((item, index) => (
+                  element={slides.map((slideItems, index) => (
                     <div key={index} className={styles.carouselSlide}>
-                      {this.renderCarouselItem(item)}
+                      {slideItems.map((item, itemIndex) => this.renderCarouselItem(item))}
                     </div>
                   ))}
                   buttonsLocation={CarouselButtonsLocation.center}
                   buttonsDisplay={CarouselButtonsDisplay.buttonsOnly}
                   contentContainerStyles={styles.carouselContainer}
-                  isInfinite={true}
+                  isInfinite={false}
                   pauseOnHover={true}
                   containerButtonsStyles={styles.carouselButtons}
                   indicatorShape={CarouselIndicatorShape.square}
                   indicators={false}
+                  interval={999999}
                 />
               ) : (
                 <div>Nenhum favorito encontrado</div>

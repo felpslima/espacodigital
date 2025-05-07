@@ -21,10 +21,11 @@
 
   .container {
     max-width: 100%;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 140px;
     position: relative;
     z-index: 1;
@@ -34,11 +35,12 @@
     width: 30%;
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 10px 10px 10px 80px;
+    justify-content: center;
   }
 
   .rightSection {
-    width: 100%;
+    width: 70%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,6 +53,7 @@
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 15px;
 
     .welcomeText {
@@ -59,6 +62,7 @@
       color: #000000;
       display: block;
       margin-bottom: 2px;
+      text-align: left;
     }
 
     .userName {
@@ -66,6 +70,7 @@
       font-weight: 500;
       color: #000000;
       display: block;
+      text-align: left;
     }
   }
 
@@ -84,28 +89,32 @@
 
   .carouselContainer {
     width: 100%;
-    height: 110px;
+    height: 122px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    padding-right: 10px;
   }
 
   .carouselSlide {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding: 10px;
     width: 100%;
     height: 100%;
     position: relative;
+    gap:40px;
+    flex-wrap: nowrap;
+
+    .carouselItem:first-child {
+      margin-left: 50px;
+    }
   }
 
   .carouselItem {
     text-align: center;
-    width: 100%;
-    height: 100%;
+    flex: 0 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -138,6 +147,15 @@
     font-size: 24px;
     margin-bottom: 5px;
     color: $ms-color-themePrimary;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 
   .carouselButtons {

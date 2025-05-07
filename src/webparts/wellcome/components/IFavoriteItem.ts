@@ -1,5 +1,6 @@
 export interface IFavoriteItem {
+  ID: number;
   Title: string;
   Link: string;
-  Icon: string;
+  Icone: string;
 } 
