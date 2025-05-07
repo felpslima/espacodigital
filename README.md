@@ -1,65 +1,91 @@
 # Espaco Digital do Estudante
 
-## Summary
+Este projeto contém uma solução SharePoint Framework (SPFx) que implementa web parts personalizadas para o portal Espaço Digital.
 
-Short summary on functionality and used technologies.
+## Web Parts Incluídas
 
+### Boas-Vindas
+- Exibe uma mensagem de boas-vindas personalizada com o nome do usuário
+- Mostra a foto do perfil do usuário
+- Apresenta um carrossel de links úteis
+- Suporta imagem de fundo personalizada
 
-## Used SharePoint Framework Version
-
-![version](https://img.shields.io/badge/version-1.21.1-green.svg)
-
-## Applies to
-
-- [SharePoint Framework](https://aka.ms/spfx)
-- [Microsoft 365 tenant](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
-
-## Prerequisites
-
-> Any special pre-requisites?
-
-## Solution
-
-| Solution      | Author(s)                                               |
-| ------------- | ------------------------------------------------------- |
-| EspacoDigital | Felipe Borde | Trabalho realizado para meu TCC          |
-
-## Version history
-
-| Version | Date             | Comments        |
-| ------- | ---------------- | --------------- |
-| 1.1     | May 6, 2025   | Update solution |
-| 1.0     | May 6, 2025   | Initial release |
-
-## Disclaimer
-
-**THIS CODE IS PROVIDED _AS IS_ WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
-
----
-
-## Minimal Path to Awesome
-
-- Clone this repository
-- Ensure that you are at the solution folder
-- Install all dependencies
-- in the command-line run:
-  - **npm install**
-  - **gulp serve**
+### Avisos
+- Exibe avisos no topo da página
+- Suporta textos formatados
 
 
-## Features
+## Pré-requisitos
 
-Description of the extension that expands upon high-level summary above.
+- Node.js (versão 16.x ou superior)
+- npm (versão 8.x ou superior)
+- Yeoman e gulp-cli instalados globalmente
+- Visual Studio Code (recomendado)
+- Acesso a um ambiente SharePoint Online
 
-This extension illustrates the following concepts:
+## Instalação
 
-- topic 1
-- topic 2
-- topic 3
+1. Clone o repositório
+```bash
+git clone https://github.com/felpslima/espacodigital.git
+cd EspacoDigital
+```
 
-> Notice that better pictures and documentation will increase the sample usage and the value you are providing for others. Thanks for your submissions advance.
+2. Instale as dependências
+```bash
+npm install
+```
 
-> Share your web part with others through Microsoft 365 Patterns and Practices program to get visibility and exposure. More details on the community, open-source projects and other activities from http://aka.ms/m365pnp.
+3. Execute o projeto em modo de desenvolvimento
+```bash
+gulp serve
+```
+
+## Compilação
+
+Para gerar o pacote de solução para implantação:
+
+1. Gere o bundle de produção
+```bash
+gulp bundle --ship
+```
+
+2. Gere o pacote de solução
+```bash
+gulp package-solution --ship
+```
+
+O pacote gerado estará disponível em:
+```
+sharepoint/solution/espaco-digital.sppkg
+```
+
+## Implantação
+
+1. Acesse o Catálogo de Aplicativos do seu site SharePoint
+2. Faça upload do arquivo `espaco-digital.sppkg`
+3. Clique em "Implantar"
+4. Após a implantação, as web parts estarão disponíveis para uso em qualquer página do site
+
+## Estrutura do Projeto
+
+```
+EspacoDigital/
+├── src/
+│   ├── webparts/
+│   │   ├── wellcome/        # Web part de Boas-Vindas
+│   │   └── announcements/   # Web part de Anúncios
+├── sharepoint/
+│   └── solution/           # Pacote de solução gerado
+└── config/                 # Configurações do projeto
+```
+
+## Desenvolvimento
+
+- Use `gulp serve` para desenvolvimento local
+- Use `gulp bundle --ship` para gerar versão de produção
+- Use `gulp package-solution --ship` para gerar o pacote de solução
+
 
 ## References
 
