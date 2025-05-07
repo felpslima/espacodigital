@@ -2,10 +2,22 @@
 
 .wellcome {
   width: 100%;
-  padding: 20px 0;
-  margin: 0;
+  padding: 10px 20px;
   overflow: hidden;
-  min-height: 200px;
+  min-height: 130px;
+  max-height: 130px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 0;
+  }
 
   .container {
     max-width: 100%;
@@ -13,31 +25,47 @@
     padding: 0;
     display: flex;
     align-items: center;
+    height: 140px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .leftSection {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .rightSection {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 60px 10px 10px;
   }
 
   .userInfo {
     font-size: 16px;
     text-align: left;
     width: 100%;
-    padding-left: 20%;
-    margin: 0;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 
     .welcomeText {
       font-size: 14px;
       font-weight: 400;
-      margin-right: 5px;
-      color: #fff;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      color: #000000;
+      display: block;
+      margin-bottom: 2px;
     }
 
     .userName {
       font-size: 18px;
       font-weight: 500;
-      color: #fff;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      color: #000000;
+      display: block;
     }
   }
 
@@ -46,19 +74,84 @@
   }
 
   .userPhoto {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    border: 4px solid #fff;
+    border: 3px solid #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     flex-shrink: 0;
   }
 
-  h2 {
-    @include ms-font-xl;
-    color: $ms-color-themeDark;
-    margin: 0;
-    text-align: left;
+  .carouselContainer {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-right: 10px;
+  }
+
+  .carouselSlide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .carouselItem {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .quickLinkButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    text-decoration: none;
+    color: $ms-color-neutralPrimary;
+    transition: transform 0.2s ease-in-out;
+    min-width: 75px;
+    min-height: 75px;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+
+    &:hover {
+      transform: scale(1.05);
+      background-color: $ms-color-white;
+    }
+  }
+
+  .quickLinkIcon {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: $ms-color-themePrimary;
+  }
+
+  .carouselButtons {
+    :global {
+      .ms-Button {
+        background-color: rgba(255, 255, 255, 0.8);
+        color: $ms-color-themePrimary;
+        z-index: 2;
+        
+        &:hover {
+          background-color: $ms-color-white;
+        }
+      }
+    }
   }
 }
 

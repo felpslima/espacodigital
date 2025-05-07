@@ -9,10 +9,20 @@
           "manifest": "./src/webparts/announcements/AnnouncementsWebPart.manifest.json"
         }
       ]
+    },
+    "wellcome-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/wellcome/WellcomeWebPart.js",
+          "manifest": "./src/webparts/wellcome/WellcomeWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "AnnouncementsWebPartStrings": "lib/webparts/announcements/loc/{locale}.js"
+    "AnnouncementsWebPartStrings": "lib/webparts/announcements/loc/{locale}.js",
+    "WellcomeWebPartStrings": "lib/webparts/wellcome/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
   }
 }

@@ -1,5 +1,8 @@
+import { IFavoriteItem } from './IFavoriteItem';
+
 export interface IWellcomeState {
   userName: string;
   userPhoto: string;
-  loading: boolean;
+  favorites: IFavoriteItem[];
+  isLoading: boolean;
 } 
