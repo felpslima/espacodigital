@@ -3,4 +3,5 @@ export interface IFavoriteItem {
   Title: string;
   Link: string;
   Icone: string;
+  Ordem: number;
 } 

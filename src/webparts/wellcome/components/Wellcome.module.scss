@@ -1,7 +1,6 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
 .wellcome {
-  width: 100%;
   padding: 10px 20px;
   overflow: hidden;
   min-height: 130px;
@@ -15,7 +14,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(178, 178, 178, 0.3);
     z-index: 0;
   }
 
@@ -57,18 +56,18 @@
     gap: 15px;
 
     .welcomeText {
-      font-size: 14px;
+      font-size: 18px;
       font-weight: 400;
-      color: #000000;
+      color: #ffffff;
       display: block;
       margin-bottom: 2px;
       text-align: left;
     }
 
     .userName {
-      font-size: 18px;
+      font-size: 24px;
       font-weight: 500;
-      color: #000000;
+      color: #ffffff;
       display: block;
       text-align: left;
     }
@@ -102,7 +101,6 @@
     align-items: center;
     padding: 10px;
     width: 100%;
-    height: 100%;
     position: relative;
     gap:40px;
     flex-wrap: nowrap;
@@ -192,6 +190,66 @@
       text-decoration: underline;
       color: "[theme:linkHovered, default: #014446]";
       color: var(--linkHovered);
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+  .wellcome{
+    max-height: 250px;
+    min-height: 250px;
+
+    .container{
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    
+      .leftSection,
+      .rightSection{
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .wellcome{
+    max-height: 250px;
+    min-height: 250px;
+
+    .container{
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    
+      .leftSection,
+      .rightSection{
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .wellcome{
+    max-height: 250px;
+    min-height: 250px;
+
+    .container{
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    
+      .leftSection,
+      .rightSection{
+        width: 100%;
+      }
     }
   }
 }

@@ -2,5 +2,5 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/spfx-serve.schema.json",
   "port": 4321,
   "https": true,
-  "initialPage": "https://ly0m.sharepoint.com/sites/EspacoDigitaldoEstudante/_layouts/workbench.aspx"
+  "initialPage": "https://kappsitsolutions.sharepoint.com/sites/EspacoDigitaldoEstudante/_layouts/workbench.aspx"
 }

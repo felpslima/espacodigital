@@ -24,4 +24,31 @@
     padding-left: 120px;
     margin: 0;
   }
+}
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 992px) {
+  .announcementText {
+    padding-left: 20px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .announcementText {
+    padding-left: 20px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .announcementText {
+    padding-left: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .announcementText {
+    padding-left: 20px !important;
+  }
 } 

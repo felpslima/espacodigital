@@ -5,4 +5,5 @@ export interface IWellcomeState {
   userPhoto: string;
   favorites: IFavoriteItem[];
   isLoading: boolean;
+  containerWidth: number;
 } 

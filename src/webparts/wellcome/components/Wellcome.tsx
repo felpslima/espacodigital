@@ -9,15 +9,18 @@ import { SPHttpClient } from '@microsoft/sp-http';
 import { Shimmer, ShimmerElementType } from '@fluentui/react/lib/Shimmer';
 
 export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeState> {
-  private defaultBackgroundImage: string = `${this.props.context.pageContext.web.absoluteUrl}/SiteAssets/welcome-background.jpg`;
+  private containerRef: React.RefObject<HTMLDivElement>;
+  private itemWidth: number = 200;
 
   constructor(props: IWellcomeProps) {
     super(props);
+    this.containerRef = React.createRef();
     this.state = {
       userName: '',
       userPhoto: '',
       favorites: [],
-      isLoading: true
+      isLoading: true,
+      containerWidth: 0
     };
   }
 
@@ -26,6 +29,18 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
       this._getCurrentUser(),
       this._loadFavorites()
     ]);
+    this._measureContainer();
+    window.addEventListener('resize', this._measureContainer);
+  }
+
+  public componentWillUnmount(): void {
+    window.removeEventListener('resize', this._measureContainer);
+  }
+
+  private _measureContainer = (): void => {
+    if (this.containerRef.current) {
+      this.setState({ containerWidth: this.containerRef.current.offsetWidth });
+    }
   }
 
   private async _getCurrentUser(): Promise<void> {
@@ -55,9 +70,8 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
 
   private async _loadFavorites(): Promise<void> {
     try {
-      console.log('Iniciando carregamento dos favoritos...');
       const response = await this.props.context.spHttpClient.get(
-        `${this.props.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('Favoritos')/items?$select=ID,Title,Link,Icone`,
+        `${this.props.context.pageContext.web.absoluteUrl}/_api/web/lists/getbytitle('Favoritos')/items?$select=ID,Title,Link,Icone,Ordem&$orderby=Ordem desc`,
         SPHttpClient.configurations.v1,
         {
           headers: {
@@ -69,8 +83,6 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
 
       if (response.ok) {
         const data = await response.json();
-        console.log('Resposta da API:', data);
-        console.log('Número de favoritos carregados:', data.value ? data.value.length : 0);
         
         const formattedFavorites = data.value.map((item: any) => {
           let iconUrl = '';
@@ -86,7 +98,8 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
           return {
             Title: item.Title || '',
             Link: item.Link || '',
-            Icone: iconUrl || 'Link'
+            Icone: iconUrl || 'Link',
+            Ordem: item.Ordem || 0
           };
         });
 
@@ -104,7 +117,6 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
   }
 
   private renderCarouselItem(item: IFavoriteItem): JSX.Element {
-    console.log('Renderizando item do carrossel:', item);
     return (
       <div className={styles.carouselItem}>
         <a href={item.Link} className={styles.quickLinkButton} target="_blank" rel="noopener noreferrer">
@@ -120,11 +132,24 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
   }
 
   private groupFavoritesIntoSlides(favorites: IFavoriteItem[]): IFavoriteItem[][] {
-    const itemsPerSlide = 4; // Número de itens por slide
-    const slides: IFavoriteItem[][] = [];
+    const { containerWidth } = this.state;
     
+    if (!favorites.length || !containerWidth) {
+      return [];
+    }
+
+    const itemsPerSlide = Math.max(1, Math.floor(containerWidth / this.itemWidth));
+    
+    if (itemsPerSlide >= favorites.length) {
+      return [favorites];
+    }
+    
+    const slides: IFavoriteItem[][] = [];
     for (let i = 0; i < favorites.length; i += itemsPerSlide) {
-      slides.push(favorites.slice(i, i + itemsPerSlide));
+      const slideItems = favorites.slice(i, i + itemsPerSlide);
+      if (slideItems.length > 0) {
+        slides.push(slideItems);
+      }
     }
     
     return slides;
@@ -168,18 +193,24 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
 
   public render(): React.ReactElement<IWellcomeProps> {
     const { userName, userPhoto, favorites, isLoading } = this.state;
-    const backgroundImage = this.props.backgroundImageUrl || this.defaultBackgroundImage;
+    const backgroundStyle = this.props.backgroundImageUrl 
+      ? {
+          backgroundImage: `url('${this.props.backgroundImageUrl}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }
+      : {
+          backgroundColor: '#0060A1'
+        };
+
     const slides = this.groupFavoritesIntoSlides(favorites);
+    const showCarousel = slides.length > 1;
 
     return (
       <div 
         className={styles.wellcome}
-        style={{
-          backgroundImage: `url('${backgroundImage}')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+        style={backgroundStyle}
       >
         {isLoading ? (
           this.renderShimmer()
@@ -198,26 +229,32 @@ export default class Wellcome extends React.Component<IWellcomeProps, IWellcomeS
                 </div>
               </div>
             </div>
-            <div className={styles.rightSection}>
+            <div className={styles.rightSection} ref={this.containerRef}>
               {favorites && favorites.length > 0 ? (
-                <Carousel
-                  element={slides.map((slideItems, index) => (
-                    <div key={index} className={styles.carouselSlide}>
-                      {slideItems.map((item, itemIndex) => this.renderCarouselItem(item))}
-                    </div>
-                  ))}
-                  buttonsLocation={CarouselButtonsLocation.center}
-                  buttonsDisplay={CarouselButtonsDisplay.buttonsOnly}
-                  contentContainerStyles={styles.carouselContainer}
-                  isInfinite={false}
-                  pauseOnHover={true}
-                  containerButtonsStyles={styles.carouselButtons}
-                  indicatorShape={CarouselIndicatorShape.square}
-                  indicators={false}
-                  interval={999999}
-                />
+                showCarousel ? (
+                  <Carousel
+                    element={slides.map((slideItems, index) => (
+                      <div key={index} className={styles.carouselSlide}>
+                        {slideItems.map((item, itemIndex) => this.renderCarouselItem(item))}
+                      </div>
+                    ))}
+                    buttonsLocation={CarouselButtonsLocation.center}
+                    buttonsDisplay={CarouselButtonsDisplay.buttonsOnly}
+                    contentContainerStyles={styles.carouselContainer}
+                    isInfinite={false}
+                    pauseOnHover={true}
+                    containerButtonsStyles={styles.carouselButtons}
+                    indicatorShape={CarouselIndicatorShape.square}
+                    indicators={false}
+                    interval={999999}
+                  />
+                ) : (
+                  <div className={styles.carouselSlide}>
+                    {favorites.map((item, index) => this.renderCarouselItem(item))}
+                  </div>
+                )
               ) : (
-                <div>Nenhum favorito encontrado</div>
+                <div>Nenhum favorito adicionado</div>
               )}
             </div>
           </div>
