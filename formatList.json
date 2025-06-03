@@ -1,0 +1,164 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/tile-formatting.schema.json",
+  "height": 333,
+  "width": 254,
+  "hideSelection": false,
+  "fillHorizontally": true,
+  "formatter": {
+    "elmType": "div",
+    "attributes": {
+      "class": "sp-card-container",
+      "style": {
+        "cursor": "default"
+      }
+    },
+    "children": [
+      {
+        "elmType": "div",
+        "attributes": {
+          "class": "sp-card-defaultClickButton"
+        },
+        "customRowAction": {
+          "action": "defaultClick"
+        }
+      },
+      {
+        "elmType": "div",
+        "attributes": {
+          "class": "ms-bgColor-white sp-css-borderColor-neutralLight sp-card-borderHighlight sp-card-subContainer"
+        },
+        "children": [
+          {
+            "elmType": "div",
+            "attributes": {
+              "class": "sp-card-previewColumnContainer",
+              "style": {
+                "display": "flex",
+                "justify-content": "center"
+              }
+            },
+            "children": [
+              {
+                "elmType": "div",
+                "attributes": {
+                  "class": "sp-card-imageContainer"
+                },
+                "style": {
+                  "width": "80px",
+                  "height": "80px",
+                  "display": "flex",
+                  "align-items": "center",
+                  "justify-content": "center",
+                  "padding": "0",
+                  "margin": "0",
+                  "margin-top": "20px",
+                  "border-radius": "50%",
+                  "align-self": "center",
+                  "box-sizing": "border-box",
+                  "margin-left": "auto",
+                  "margin-right": "auto"
+                },
+                "children": [
+                  {
+                    "elmType": "img",
+                    "style": {
+                      "display": "=if([$Image0] == '', 'none', '')",
+                      "width": "80px",
+                      "height": "80px",
+                      "border-radius": "50%",
+                      "object-fit": "cover"
+                    },
+                    "attributes": {
+                      "src": "=getThumbnailImage([$Image0], 400, 400)",
+                      "title": "[$Image0.fileName]",
+                      "class": "sp-card-imagePreview"
+                    }
+                  },
+                  {
+                    "elmType": "img",
+                    "style": {
+                      "display": "=if([$Image0] == '', '', 'none')",
+                      "width": "80px",
+                      "height": "80px",
+                      "border-radius": "50%",
+                      "object-fit": "cover"
+                    },
+                    "attributes": {
+                      "src": "/sites/EspacoDigitaldoEstudante/SiteAssets/avatar-default.jpg",
+                      "title": "Imagem padrão"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "elmType": "div",
+            "attributes": {
+              "class": "sp-card-displayColumnContainer"
+            },
+            "children": [
+              {
+                "elmType": "p",
+                "attributes": {
+                  "title": "[$Title]",
+                  "class": "ms-fontColor-neutralPrimary sp-card-content sp-card-highlightedContent",
+                  "role": "heading",
+                  "aria-level": "3"
+                },
+                "txtContent": "=if ([$Title] == '', '–', [$Title])"
+              }
+            ]
+          },
+          {
+            "elmType": "div",
+            "attributes": {
+              "class": "sp-card-displayColumnContainer"
+            },
+            "children": [
+              {
+                "elmType": "a",
+                "attributes": {
+                  "title": "[$Email]",
+                  "class": "ms-fontColor-neutralPrimary sp-card-content sp-card-urlContent  sp-card-keyboard-focusable",
+                  "href": "[$Email]",
+                  "target": "=if ([$Email] == '', '', '_blank')"
+                },
+                "style": {
+                  "pointer-events": "=if ([$Email] == '', 'none', 'auto')",
+                  "text-decoration": "underline",
+                  "color": "#0078d4",
+                  "cursor": "pointer"
+                },
+                "txtContent": "=if ([$Email.desc] == '', '–', [$Email.desc])"
+              }
+            ]
+          },
+          {
+            "elmType": "div",
+            "attributes": {
+              "class": "sp-card-lastTextColumnContainer"
+            },
+            "children": [
+              {
+                "elmType": "p",
+                "attributes": {
+                  "class": "ms-fontColor-neutralPrimary sp-card-content  sp-card-multiline"
+                },
+                "txtContent": "=if ([$Descricao] == '', '–', [$Descricao])",
+                "style": {
+                  "-webkit-line-clamp": "6",
+                  "height": "125px",
+                  "display": "-webkit-box",
+                  "-webkit-box-orient": "vertical",
+                  "overflow": "hidden",
+                  "text-overflow": "ellipsis"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
